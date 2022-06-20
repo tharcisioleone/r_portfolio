@@ -62,6 +62,7 @@ confint(object=mediarenda) # Computing the confidence intervals
 # Estimating Average Monthly Income for people aged 14 and over per State
 mediaRendaUF <- svyby(formula=~VD4020, by=~UF, design=dadosPNADc, FUN=svymean, na.rm=TRUE)
 mediaRendaUF
+confint(object=mediaRendaUF)
 
 # Deflating Nominal Values to Real Values
 dadosPNADc$variables <- transform(dadosPNADc$variables, VD4020_real=VD4020*Efetivo) # Creating the deflated variable
@@ -69,5 +70,11 @@ totalrenda_real <- svytotal(x=~VD4020_real, design=dadosPNADc, na.rm=TRUE) # Est
 totalrenda_real
 mediarenda_real <- svymean(x=~VD4020_real, design=dadosPNADc, na.rm=TRUE) # Estimating average monthly deflated Income
 mediarenda_real # Average Deflated Income = R$ 2,785.3 per Month
+
+
+## 3. DATA VISUALIZATION
+# Creating a Histogram reporting the average Number of worked hours per Week
+svyhist(formula=~as.numeric(VD4035), design=dadosPNADc, main="Histogram", xlab="Number of worked hours per Week")
+svyhist(formula=~as.numeric(VD4035), design=dadosPNADc, freq=TRUE, main="Histogram", xlab="Number of worked hours per Week") # Changing Y axis to absolute numbers
 
 
