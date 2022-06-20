@@ -26,7 +26,7 @@ dadosPNADc <- get_pnadc(year=2017, quarter=4, vars=variaveis_selecionadas)
 
 
 
-## DATA ANALYSIS
+## 2. DATA ANALYSIS
 
 # Estimating Total Population
 totalsexo <- svytotal(x=~V2007, design=dadosPNADc, na.rm=TRUE) # Population by Gender
@@ -39,6 +39,12 @@ ftable(x=totalsexoEraca)
 # Estimating Mean Values for the Population
 propsexo <- svymean(x=~V2007, design=dadosPNADc, na.rm=TRUE) # Proportion by Gender
 propsexo
+propsexoraca <- svymean(x=~V2007+V2010, design=dadosPNADc, na.rm=TRUE) # Proportion by Gender AND Race
+propsexoraca
+
+# Estimating Median and Quantiles for the Population
+medianarenda <- svyquantile(x=~VD4020, design=dadosPNADc, quantiles=0.5, ci=FALSE, na.rm=TRUE)
+medianarenda
 
 # Estimating Total Monthly Income for people aged 14 and over
 totalrenda <- svytotal(x=~VD4020, design=dadosPNADc, na.rm=TRUE)
@@ -52,3 +58,16 @@ mediarenda <- svymean(x=~VD4020, design=dadosPNADc, na.rm=TRUE)
 mediarenda # Average Income = R$ 2,182.6 per Month
 cv(object=mediarenda) # Computing the ratio of the standard deviation to the mean.
 confint(object=mediarenda) # Computing the confidence intervals
+
+# Estimating Average Monthly Income for people aged 14 and over per State
+mediaRendaUF <- svyby(formula=~VD4020, by=~UF, design=dadosPNADc, FUN=svymean, na.rm=TRUE)
+mediaRendaUF
+
+# Deflating Nominal Values to Real Values
+dadosPNADc$variables <- transform(dadosPNADc$variables, VD4020_real=VD4020*Efetivo) # Creating the deflated variable
+totalrenda_real <- svytotal(x=~VD4020_real, design=dadosPNADc, na.rm=TRUE) # Estimating total deflated Income
+totalrenda_real
+mediarenda_real <- svymean(x=~VD4020_real, design=dadosPNADc, na.rm=TRUE) # Estimating average monthly deflated Income
+mediarenda_real # Average Deflated Income = R$ 2,785.3 per Month
+
+
