@@ -1,2 +1,2 @@
-# r_portfolio
- R script used in the economic research
+# Welcome to my R Portfolio !
+You will find here some examples of my empirical work using R. 
