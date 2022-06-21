@@ -72,9 +72,17 @@ mediarenda_real <- svymean(x=~VD4020_real, design=dadosPNADc, na.rm=TRUE) # Esti
 mediarenda_real # Average Deflated Income = R$ 2,785.3 per Month
 
 
+
 ## 3. DATA VISUALIZATION
-# Creating a Histogram reporting the average Number of worked hours per Week
+
+# Creating a Histogram reporting the average number of worked hours per Week.
 svyhist(formula=~as.numeric(VD4035), design=dadosPNADc, main="Histogram", xlab="Number of worked hours per Week")
 svyhist(formula=~as.numeric(VD4035), design=dadosPNADc, freq=TRUE, main="Histogram", xlab="Number of worked hours per Week") # Changing Y axis to absolute numbers
+
+# Creating Boxplots reporting the (weighted) average number of worked hours per Week
+svyboxplot(formula=VD4035~1, design=dadosPNADc, main="Number of worked hours per Week")
+
+# Same as before but per gender (weighted average number of worked hours per Week)
+svyboxplot(formula=VD4035~V2007, design=dadosPNADc, main="Number of worked hours per Week by gender")
 
 
