@@ -19,7 +19,7 @@ dados_pnadc <- get_pnadc(year = 2021, quarter = 3, vars = c("VD4020", "V2007"))
 
 ## DATA ANALYSIS
 # Identifing the class of object
-class(dados_pnadc) # útil para análises de dados amostrais complexos
+class(dados_pnadc) # used for the analysis of sample data
 
 # Finding the number of male and female
 svytotal(x = ~V2007, design = dados_pnadc, na.rm = TRUE)
